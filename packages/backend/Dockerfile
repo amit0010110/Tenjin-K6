@@ -35,4 +35,4 @@ RUN npx prisma generate
 
 EXPOSE 3001
 
-CMD ["node", "dist/index.js"]
+CMD ["/bin/sh", "-c", "npx prisma db push --skip-generate --accept-data-loss && npx tsx prisma/seed.ts && node dist/index.js"]
