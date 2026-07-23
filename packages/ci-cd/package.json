@@ -1,0 +1,7 @@
+{
+  "name": "@tenjint6/ci-cd",
+  "private": true,
+  "version": "0.1.0",
+  "description": "CI/CD integration templates for TenjinT6",
+  "type": "module"
+}

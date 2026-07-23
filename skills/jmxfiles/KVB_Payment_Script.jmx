@@ -1,0 +1,1069 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="host" elementType="Argument">
+            <stringProp name="Argument.name">host</stringProp>
+            <stringProp name="Argument.value">www.example.com</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="scheme" elementType="Argument">
+            <stringProp name="Argument.name">scheme</stringProp>
+            <stringProp name="Argument.value">https</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="KVB_IP_Address" elementType="Argument">
+            <stringProp name="Argument.name">KVB_IP_Address</stringProp>
+            <stringProp name="Argument.value">10.55.6.90</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="KVB_IP_PORT" elementType="Argument">
+            <stringProp name="Argument.name">KVB_IP_PORT</stringProp>
+            <stringProp name="Argument.value">7051</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="Think_Time" elementType="Argument">
+            <stringProp name="Argument.name">Think_Time</stringProp>
+            <stringProp name="Argument.value">1000</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="KVB_PT_API_01_NEFT_OUT" elementType="Argument">
+            <stringProp name="Argument.name">KVB_PT_API_01_NEFT_OUT</stringProp>
+            <stringProp name="Argument.value">D:/Yethi_PT/PT_EXE/Errors/KVB_PT_API_01_NEFT_OUT</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="inputFilePath" elementType="Argument">
+            <stringProp name="Argument.name">inputFilePath</stringProp>
+            <stringProp name="Argument.value">D:\\latest software\\apache-jmeter-5.5\\apache-jmeter-5.5\\bin\\NFT_Incoming_Request29.txt</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="outputFilePath" elementType="Argument">
+            <stringProp name="Argument.name">outputFilePath</stringProp>
+            <stringProp name="Argument.value">D:\\latest software\\apache-jmeter-5.5\\apache-jmeter-5.5\\bin\\NFT_Incoming_Request29_1.txt</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="System_date" elementType="Argument">
+            <stringProp name="Argument.name">System_date</stringProp>
+            <stringProp name="Argument.value">2024-12-03</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+        <stringProp name="TestPlan.comments">D:\\latest software\\apache-jmeter-5.5\\apache-jmeter-5.5\\bin\\NFT_Incoming_Request29.txt</stringProp>
+      </Arguments>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <stringProp name="HTTPSampler.domain">www.example.com</stringProp>
+        <stringProp name="HTTPSampler.protocol">https</stringProp>
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.implementation"></stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+        <collectionProp name="CookieManager.cookies"/>
+        <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+        <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+      </CookieManager>
+      <hashTree/>
+      <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager" enabled="true">
+        <boolProp name="clearEachIteration">true</boolProp>
+        <boolProp name="useExpires">true</boolProp>
+        <boolProp name="CacheManager.controlledByThread">false</boolProp>
+      </CacheManager>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="KVB_PT_API_01_NEFT_OUTGOING" enabled="true">
+        <intProp name="ThreadGroup.num_threads">250</intProp>
+        <intProp name="ThreadGroup.ramp_time">250</intProp>
+        <longProp name="ThreadGroup.duration">850</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="OverAll - KVB_PT_API_01_NEFT_OUTGOING" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="KVB_PT_API_01_NEFT_OUTGOING" enabled="true">
+            <boolProp name="LoopController.continue_forever">true</boolProp>
+            <intProp name="LoopController.loops">-1</intProp>
+          </LoopController>
+          <hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="true">
+              <stringProp name="IfController.condition">${JMeterThread.last_sample_ok}</stringProp>
+              <boolProp name="IfController.evaluateAll">true</boolProp>
+              <boolProp name="IfController.useExpression">false</boolProp>
+            </IfController>
+            <hashTree>
+              <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+                <stringProp name="delimiter">,</stringProp>
+                <stringProp name="fileEncoding"></stringProp>
+                <stringProp name="filename">D:/Yethi_PT/PT_EXE/TestData/RTGS_OUT_AccountNo.csv</stringProp>
+                <boolProp name="ignoreFirstLine">true</boolProp>
+                <boolProp name="quotedData">false</boolProp>
+                <boolProp name="recycle">true</boolProp>
+                <stringProp name="shareMode">shareMode.all</stringProp>
+                <boolProp name="stopThread">false</boolProp>
+                <stringProp name="variableNames">PR_FromAccountId</stringProp>
+              </CSVDataSet>
+              <hashTree/>
+              <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="PR_Reference_number" enabled="true">
+                <stringProp name="maximumValue">20199999</stringProp>
+                <stringProp name="minimumValue">20011111</stringProp>
+                <stringProp name="outputFormat">202321</stringProp>
+                <boolProp name="perThread">false</boolProp>
+                <stringProp name="randomSeed"></stringProp>
+                <stringProp name="variableName">PR_Reference_number</stringProp>
+              </RandomVariableConfig>
+              <hashTree/>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="KVB_PT_API_01_NEFT_OUTGOING" enabled="true">
+                <stringProp name="TestPlan.comments">https://10.55.6.90:7151</stringProp>
+                <intProp name="HTTPSampler.concurrentPool">6</intProp>
+                <stringProp name="HTTPSampler.domain">${KVB_IP_Address}</stringProp>
+                <stringProp name="HTTPSampler.port">${KVB_IP_PORT}</stringProp>
+                <stringProp name="HTTPSampler.protocol">https</stringProp>
+                <stringProp name="HTTPSampler.path">/AppServices/services/XfaceFundsXferNEFTWrapper.XfaceFundsXferNEFTWrapperHttpSoap11Endpoint/</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:tran=&quot;http://transaction.wrapper.xface.fc.ofss.com&quot; xmlns:xsd=&quot;http://context.app.fc.ofss.com/xsd&quot; xmlns:xsd1=&quot;http://common.dto.xface.fc.ofss.com/xsd&quot; xmlns:xsd2=&quot;http://error.validation.infra.fc.ofss.com/xsd&quot; xmlns:xsd3=&quot;http://dto.xface.fc.ofss.com/xsd&quot;&gt;&#xd;
+   &lt;soapenv:Header/&gt;&#xd;
+   &lt;soapenv:Body&gt;&#xd;
+      &lt;tran:processRequest&gt;&#xd;
+         &lt;tran:param1&gt;&#xd;
+            &lt;xsd:bankCode&gt;53&lt;/xsd:bankCode&gt;&#xd;
+            &lt;xsd:channel&gt;API&lt;/xsd:channel&gt;&#xd;
+            &lt;xsd:externalBatchNumber&gt;0&lt;/xsd:externalBatchNumber&gt;&#xd;
+            &lt;xsd:externalReferenceNo&gt;${PR_Reference_number}&lt;/xsd:externalReferenceNo&gt;&#xd;
+            &lt;xsd:serviceCode&gt;223&lt;/xsd:serviceCode&gt;&#xd;
+           &lt;xsd:transactionBranch&gt;2101&lt;/xsd:transactionBranch&gt;&#xd;
+            &lt;xsd:userId&gt;MBUSER&lt;/xsd:userId&gt;&#xd;
+         &lt;/tran:param1&gt;&#xd;
+         &lt;tran:param2&gt;&#xd;
+            &lt;xsd3:benefAcctNo&gt;42810715453&lt;/xsd3:benefAcctNo&gt;&#xd;
+            &lt;xsd3:benefNREFlg&gt;EX&lt;/xsd3:benefNREFlg&gt;&#xd;
+            &lt;xsd3:benefName&gt;3155&lt;/xsd3:benefName&gt;&#xd;
+            &lt;xsd3:beneficiaryAccountType&gt;10&lt;/xsd3:beneficiaryAccountType&gt;&#xd;
+            &lt;xsd3:codIFSCBenef&gt;ICIC0001682&lt;/xsd3:codIFSCBenef&gt;&#xd;
+            &lt;xsd3:codIFSCSend&gt;KVBL0001470&lt;/xsd3:codIFSCSend&gt;&#xd;
+            &lt;xsd3:fromAccountId&gt;${PR_FromAccountId}&lt;/xsd3:fromAccountId&gt;&#xd;
+            &lt;xsd3:narrative&gt;payment &lt;/xsd3:narrative&gt;&#xd;
+            &lt;xsd3:senderInformation&gt;1&lt;/xsd3:senderInformation&gt;&#xd;
+            &lt;xsd3:sendingCustomerMobileNo&gt;9003118706&lt;/xsd3:sendingCustomerMobileNo&gt;&#xd;
+            &lt;xsd3:transactionAmount&gt;1&lt;/xsd3:transactionAmount&gt;&#xd;
+             &lt;/tran:param2&gt;&#xd;
+      &lt;/tran:processRequest&gt;&#xd;
+   &lt;/soapenv:Body&gt;&#xd;
+&lt;/soapenv:Envelope&gt;</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept-Encoding</stringProp>
+                      <stringProp name="Header.value">gzip,deflate</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Content-Type</stringProp>
+                      <stringProp name="Header.value">text/xml;charset=UTF-8</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Content-Length</stringProp>
+                      <stringProp name="Header.value">1692</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Connection</stringProp>
+                      <stringProp name="Header.value">Keep-Alive</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">User-Agent</stringProp>
+                      <stringProp name="Header.value">Apache-HttpClient/4.5.5 (Java/16.0.1)</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="COR_neftRefereNceNumber" enabled="true">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">COR_neftRefereNceNumber</stringProp>
+                  <stringProp name="RegexExtractor.regex">neftRefereNceNumber&gt;(.*?)&lt;</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.match_number">1</stringProp>
+                  <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="RegexExtractor.default"></stringProp>
+                </RegexExtractor>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="1190120085">errorCode&gt;0&lt;</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+                  <stringProp name="ConstantTimer.delay">${Think_Time}</stringProp>
+                </ConstantTimer>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="KVB_PT_API_01_NEFT_OUTGOING_DC_Flash" enabled="false">
+                <stringProp name="TestPlan.comments">http://10.52.13.14:7151/AppServices/services/XfaceFundsXferNEFTWrapper.XfaceFundsXferNEFTWrapperHttpSoap11Endpoint/</stringProp>
+                <intProp name="HTTPSampler.concurrentPool">6</intProp>
+                <stringProp name="HTTPSampler.domain">${KVB_IP_Address}</stringProp>
+                <stringProp name="HTTPSampler.port">${KVB_IP_PORT}</stringProp>
+                <stringProp name="HTTPSampler.protocol">http</stringProp>
+                <stringProp name="HTTPSampler.path">/AppServices/services/XfaceFundsXferNEFTWrapper.XfaceFundsXferNEFTWrapperHttpSoap11Endpoint/</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:tran=&quot;http://transaction.wrapper.xface.fc.ofss.com&quot; xmlns:xsd=&quot;http://context.app.fc.ofss.com/xsd&quot; xmlns:xsd1=&quot;http://common.dto.xface.fc.ofss.com/xsd&quot; xmlns:xsd2=&quot;http://error.validation.infra.fc.ofss.com/xsd&quot; xmlns:xsd3=&quot;http://dto.xface.fc.ofss.com/xsd&quot;&gt;&#xd;
+   &lt;soapenv:Header/&gt;&#xd;
+   &lt;soapenv:Body&gt;&#xd;
+      &lt;tran:processRequest&gt;&#xd;
+         &lt;tran:param1&gt;&#xd;
+            &lt;xsd:bankCode&gt;53&lt;/xsd:bankCode&gt;&#xd;
+            &lt;xsd:channel&gt;API&lt;/xsd:channel&gt;&#xd;
+            &lt;xsd:externalBatchNumber&gt;0&lt;/xsd:externalBatchNumber&gt;&#xd;
+            &lt;xsd:externalReferenceNo&gt;${PR_Reference_number}&lt;/xsd:externalReferenceNo&gt;&#xd;
+            &lt;xsd:serviceCode&gt;223&lt;/xsd:serviceCode&gt;&#xd;
+           &lt;xsd:transactionBranch&gt;2101&lt;/xsd:transactionBranch&gt;&#xd;
+            &lt;xsd:userId&gt;MBUSER&lt;/xsd:userId&gt;&#xd;
+         &lt;/tran:param1&gt;&#xd;
+         &lt;tran:param2&gt;&#xd;
+            &lt;xsd3:benefAcctNo&gt;42810715453&lt;/xsd3:benefAcctNo&gt;&#xd;
+            &lt;xsd3:benefNREFlg&gt;EX&lt;/xsd3:benefNREFlg&gt;&#xd;
+            &lt;xsd3:benefName&gt;3155&lt;/xsd3:benefName&gt;&#xd;
+            &lt;xsd3:beneficiaryAccountType&gt;10&lt;/xsd3:beneficiaryAccountType&gt;&#xd;
+            &lt;xsd3:codIFSCBenef&gt;ICIC0001682&lt;/xsd3:codIFSCBenef&gt;&#xd;
+            &lt;xsd3:codIFSCSend&gt;KVBL0001470&lt;/xsd3:codIFSCSend&gt;&#xd;
+            &lt;xsd3:fromAccountId&gt;${PR_FromAccountId}&lt;/xsd3:fromAccountId&gt;&#xd;
+            &lt;xsd3:narrative&gt;payment &lt;/xsd3:narrative&gt;&#xd;
+            &lt;xsd3:senderInformation&gt;1&lt;/xsd3:senderInformation&gt;&#xd;
+            &lt;xsd3:sendingCustomerMobileNo&gt;9003118706&lt;/xsd3:sendingCustomerMobileNo&gt;&#xd;
+            &lt;xsd3:transactionAmount&gt;1&lt;/xsd3:transactionAmount&gt;&#xd;
+             &lt;/tran:param2&gt;&#xd;
+      &lt;/tran:processRequest&gt;&#xd;
+   &lt;/soapenv:Body&gt;&#xd;
+&lt;/soapenv:Envelope&gt;</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept-Encoding</stringProp>
+                      <stringProp name="Header.value">gzip,deflate</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Content-Type</stringProp>
+                      <stringProp name="Header.value">text/xml;charset=UTF-8</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Content-Length</stringProp>
+                      <stringProp name="Header.value">1687</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Connection</stringProp>
+                      <stringProp name="Header.value">Keep-Alive</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">User-Agent</stringProp>
+                      <stringProp name="Header.value">Apache-HttpClient/4.5.5 (Java/16.0.1)</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="COR_neftRefereNceNumber" enabled="true">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">COR_neftRefereNceNumber</stringProp>
+                  <stringProp name="RegexExtractor.regex">neftRefereNceNumber&gt;(.*?)&lt;</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.match_number">1</stringProp>
+                  <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="RegexExtractor.default"></stringProp>
+                </RegexExtractor>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="1190120085">errorCode&gt;0&lt;</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+                  <stringProp name="ConstantTimer.delay">${Think_Time}</stringProp>
+                </ConstantTimer>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="VTS_Get_total_ColumnRows_COR_neftRefereNceNumber" enabled="true">
+                <intProp name="HTTPSampler.concurrentPool">6</intProp>
+                <stringProp name="HTTPSampler.domain">localhost</stringProp>
+                <stringProp name="HTTPSampler.port">4000</stringProp>
+                <stringProp name="HTTPSampler.protocol">http</stringProp>
+                <stringProp name="HTTPSampler.path">/data/get_count?colname=KVB_PT_API_01_NEFT_OUT&amp;_=15197482799</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">VTS_Column_Cunt</stringProp>
+                  <stringProp name="RegexExtractor.regex">true,&quot;count&quot;:(.*?)}</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.match_number">1</stringProp>
+                  <stringProp name="Sample.scope">all</stringProp>
+                  <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                  <stringProp name="RegexExtractor.default"></stringProp>
+                </RegexExtractor>
+                <hashTree/>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Content-Type</stringProp>
+                      <stringProp name="Header.value">application/x-www-form-urlencoded</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="VTS_Get_edit_ColumnRows_COR_neftRefereNceNumber" enabled="true">
+                <stringProp name="TestPlan.comments">key=DDA_GL_Trans_No,DDA-DDA_Trans_No,GL-DDA_Trans_No&amp;value=${DDA_GL_Trans_No},${DDA-DDA_Trans_No},${GL-DDA_Trans_No}&amp;PR_Username=test&amp;id=${VTS_Column_Cunt}&amp;oper=edit</stringProp>
+                <intProp name="HTTPSampler.concurrentPool">6</intProp>
+                <stringProp name="HTTPSampler.domain">localhost</stringProp>
+                <stringProp name="HTTPSampler.port">4000</stringProp>
+                <stringProp name="HTTPSampler.protocol">http</stringProp>
+                <stringProp name="HTTPSampler.path">/data/edit_cell/</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">key=KVB_PT_API_01_NEFT_OUT&amp;value=${COR_neftRefereNceNumber}&amp;PR_Username=test&amp;id=${VTS_Column_Cunt}&amp;oper=edit</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Content-Type</stringProp>
+                      <stringProp name="Header.value">application/x-www-form-urlencoded</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+              </hashTree>
+              <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="ERR_MSG_1" enabled="true">
+                <stringProp name="BoundaryExtractor.useHeaders">false</stringProp>
+                <stringProp name="BoundaryExtractor.refname">ERR_MSG_1</stringProp>
+                <stringProp name="BoundaryExtractor.lboundary">errorCode&gt;&lt;ax21026:errorMessage&gt;</stringProp>
+                <stringProp name="BoundaryExtractor.rboundary">&lt;/ax21026</stringProp>
+                <stringProp name="BoundaryExtractor.default">XYZ</stringProp>
+                <boolProp name="BoundaryExtractor.default_empty_value">false</boolProp>
+                <stringProp name="BoundaryExtractor.match_number">1</stringProp>
+                <stringProp name="Sample.scope">all</stringProp>
+                <stringProp name="TestPlan.comments">errorCode&gt;&lt;ax21026:errorMessage&gt;Invalid Account Number ${PR_FromAccountId}    &lt;/ax21026</stringProp>
+              </BoundaryExtractor>
+              <hashTree/>
+              <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="ERR_MSG_2" enabled="true">
+                <stringProp name="BoundaryExtractor.useHeaders">false</stringProp>
+                <stringProp name="BoundaryExtractor.refname">ERR_MSG_2</stringProp>
+                <stringProp name="BoundaryExtractor.lboundary">replyCode&gt;99&lt;/ax21030:replyCode&gt;&lt;ax21030:replyText&gt;</stringProp>
+                <stringProp name="BoundaryExtractor.rboundary">&lt;/ax21030:replyText&gt;</stringProp>
+                <stringProp name="BoundaryExtractor.default">XYZ</stringProp>
+                <boolProp name="BoundaryExtractor.default_empty_value">false</boolProp>
+                <stringProp name="BoundaryExtractor.match_number">1</stringProp>
+                <stringProp name="Sample.scope">all</stringProp>
+                <stringProp name="TestPlan.comments">replyCode&gt;99&lt;/ax21030:replyCode&gt;&lt;ax21030:replyText&gt;Transaction found with this  external reference number ${PR_Reference_number}&lt;/ax21030:replyText&gt;</stringProp>
+              </BoundaryExtractor>
+              <hashTree/>
+              <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="ERR_MSG_3" enabled="true">
+                <stringProp name="BoundaryExtractor.useHeaders">false</stringProp>
+                <stringProp name="BoundaryExtractor.refname">ERR_MSG_3</stringProp>
+                <stringProp name="BoundaryExtractor.lboundary">,&quot;errorMessage&quot;:&quot;</stringProp>
+                <stringProp name="BoundaryExtractor.rboundary">&quot;</stringProp>
+                <stringProp name="BoundaryExtractor.default">XYZ</stringProp>
+                <boolProp name="BoundaryExtractor.default_empty_value">false</boolProp>
+                <stringProp name="BoundaryExtractor.match_number">1</stringProp>
+                <stringProp name="Sample.scope">all</stringProp>
+                <stringProp name="TestPlan.comments">{&quot;errorCode&quot;:&quot;W0205&quot;,&quot;errorMessage&quot;:&quot;The withdrawal amount cannot exceed the account balance.[N00170436/   1]&quot;,&quot;errorTag&quot;:&quot;&quot;</stringProp>
+              </BoundaryExtractor>
+              <hashTree/>
+              <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="ERR_MSG_4" enabled="true">
+                <stringProp name="BoundaryExtractor.useHeaders">false</stringProp>
+                <stringProp name="BoundaryExtractor.refname">ERR_MSG_4</stringProp>
+                <stringProp name="BoundaryExtractor.lboundary">id&quot;:&quot;1&quot;,&quot;error&quot;:{&quot;code&quot;:&quot;</stringProp>
+                <stringProp name="BoundaryExtractor.rboundary">&quot;}</stringProp>
+                <stringProp name="BoundaryExtractor.default">XYZ</stringProp>
+                <boolProp name="BoundaryExtractor.default_empty_value">false</boolProp>
+                <stringProp name="BoundaryExtractor.match_number">1</stringProp>
+                <stringProp name="Sample.scope">all</stringProp>
+                <stringProp name="TestPlan.comments">{&quot;id&quot;:&quot;1&quot;,&quot;error&quot;:{&quot;code&quot;:&quot;NOT_FOUND_TXN&quot;,&quot;message&quot;:&quot;Transaction not found&quot;},&quot;jsonrpc&quot;:&quot;2.0&quot;}
+</stringProp>
+              </BoundaryExtractor>
+              <hashTree/>
+              <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion1" enabled="true">
+                <stringProp name="BeanShellAssertion.query">try {
+    String errorMessage1 = vars.get(&quot;ERR_MSG_1&quot;);
+    String errorMessage2 = vars.get(&quot;ERR_MSG_2&quot;);
+    String errorMessage3 = vars.get(&quot;ERR_MSG_3&quot;);
+    String errorMessage4 = vars.get(&quot;ERR_MSG_4&quot;);
+   
+ if(errorMessage1.length() ==0)
+ {  errorMessage1 = &quot;XYZ&quot;;
+ }
+ if(errorMessage2.length() ==0)
+ {  errorMessage2 = &quot;XYZ&quot;;
+ }
+if(errorMessage3.length() ==0)
+ {  errorMessage3 = &quot;XYZ&quot;;
+ }
+ if(errorMessage4.length() ==0)
+ {  errorMessage4 = &quot;XYZ&quot;;
+ }
+ 
+  String errorMessage = errorMessage1.trim() + errorMessage2.trim() + errorMessage3.trim() + errorMessage4.trim();
+
+    log.info(&quot;err1 value: &quot; + errorMessage1);
+    log.info(&quot;err2 value: &quot; + errorMessage2);
+
+    log.info(&quot;err value: &quot; + errorMessage);
+    
+    log.info(&quot;e len&quot; + errorMessage.length());
+
+  
+    
+
+ int threadNum = ctx.getThreadNum() + 1;
+int iterationNum = ctx.getVariables().getIteration();
+log.info(&quot;iteration number: &quot; + iterationNum);
+log.info(&quot;thread number: &quot; + threadNum);
+
+    //	 if(errorMessage.equals(&quot;XYZ&quot;))
+  if(errorMessage != null &amp;&amp; !errorMessage.equals(&quot;XYZXYZXYZXYZ&quot;) &amp;&amp; errorMessage.length() != 0 &amp;&amp; !errorMessage.contains(&quot;Operation&quot;))
+    {
+    	   log.info(&quot;after condition: &quot; + errorMessage);
+    	   
+        Failure = true;
+        FailureMessage = &quot;Response Code: &quot; + ResponseCode + &quot;, Response Msg: &quot; + ResponseMessage + &quot;, ResponseBody: &quot; + errorMessage;
+    prev.setResponseMessage(&quot;Error Message: &quot; + errorMessage);
+            
+        
+//ctx.setTestLogicalAction(org.apache.jmeter.threads.JMeterContext.TestLogicalAction.START_NEXT_ITERATION_OF_CURRENT_LOOP);
+    }
+} catch (Exception e) {
+    log.info(&quot;Exception caught: &quot; + e.getMessage());
+    //e.printStackTrace();
+    return &quot;Beanshell::::::&quot; + samplerName + &quot;Error::::::::::::&quot; + e.getMessage();
+}</stringProp>
+                <stringProp name="BeanShellAssertion.filename"></stringProp>
+                <stringProp name="BeanShellAssertion.parameters"></stringProp>
+                <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+              </BeanShellAssertion>
+              <hashTree/>
+            </hashTree>
+            <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controllerelse" enabled="true">
+              <stringProp name="IfController.condition">${JMeterThread.last_sample_ok} == false</stringProp>
+              <boolProp name="IfController.evaluateAll">true</boolProp>
+              <boolProp name="IfController.useExpression">false</boolProp>
+            </IfController>
+            <hashTree>
+              <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler" enabled="true">
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="script">try {
+
+    String errorMessage1 = vars.get(&quot;ERR_MSG_1&quot;);
+    String errorMessage2 = vars.get(&quot;ERR_MSG_2&quot;);
+    String errorMessage3 = vars.get(&quot;ERR_MSG_3&quot;);
+    String errorMessage4 = vars.get(&quot;ERR_MSG_4&quot;);
+   
+ if(errorMessage1.length() ==0)
+ {  errorMessage1 = &quot;XYZ&quot;;
+ }
+ if(errorMessage2.length() ==0)
+ {  errorMessage2 = &quot;XYZ&quot;;
+ }
+ if(errorMessage3.length() ==0)
+ {  errorMessage3 = &quot;XYZ&quot;;
+ }
+  if(errorMessage4.length() ==0)
+ {  errorMessage4 = &quot;XYZ&quot;;
+ }
+
+  String errorMessage = errorMessage1.trim() + errorMessage2.trim() + errorMessage3.trim() + errorMessage4.trim();
+
+    if(errorMessage == null || errorMessage == &quot;&quot; || errorMessage.length() == 0 || errorMessage.equals(&quot;XYZXYZXYZXYZ&quot;))
+    {
+        log.info(&quot;Inside if condition: &quot; + errorMessage);
+
+        String samplerName = prev.getSampleLabel();
+        int startIndex = Math.max(samplerName.length() - 3, 0);
+        samplerName = samplerName.substring(startIndex);
+
+
+ int threadNum = ctx.getThreadNum() + 1;
+int iterationNum = ctx.getVariables().getIteration();
+        
+        String requestBody = prev.getSamplerData();
+        String response = prev.getResponseDataAsString();
+        
+        log.info(&quot;Request Body: &quot; + requestBody);
+        log.info(&quot;Response Message: &quot; + response);
+        log.info(&quot;Failure message: &quot; + FailureMessage);
+
+        String stringTest = &quot;Response Code: &quot; + ResponseCode + &quot;, Response Msg: &quot; + ResponseMessage +
+            &quot;, Error_Message: &quot; + Error_Message + &quot;, Request Body: &quot; + requestBody +
+            &quot;, ResponseBody: &quot; + response;
+
+        f = new FileOutputStream(&quot;${KVB_PT_API_01_NEFT_OUT}/Error_&quot;+&quot;_&quot;+samplerName +&quot;_&quot;+threadNum+&quot;_&quot;+iterationNum+&quot;.txt&quot;, true);
+        p = new PrintStream(f);
+        this.interpreter.setOut(p);
+        print(stringTest);
+        f.close();
+  //      SampleResult.setStopThread(true);
+
+    }
+  
+
+//ctx.setTestLogicalAction(org.apache.jmeter.threads.JMeterContext.TestLogicalAction.START_NEXT_ITERATION_OF_CURRENT_LOOP);
+
+/*  -- Beanshell thread controller methods
+ctx.setTestLogicalAction(org.apache.jmeter.threads.JMeterContext.TestLogicalAction.START_NEXT_ITERATION_OF_CURRENT_LOOP);
+ctx.setTestLogicalAction(org.apache.jmeter.threads.JMeterContext.TestLogicalAction.START_NEXT_ITERATION_OF_THREAD);
+ctx.setTestLogicalAction(org.apache.jmeter.threads.JMeterContext.TestLogicalAction.CONTINUE);
+ctx.setTestLogicalAction(org.apache.jmeter.threads.JMeterContext.TestLogicalAction.BREAK_CURRENT_LOOP);
+*/
+ 
+// -- JSR223 thread controller methods
+//SampleResult.setStopThread(true); 
+//ctx.setRestartNextLoop(true); 
+
+//-- this helps to move control back to thread group level iteration
+    
+} catch (Exception e) {
+    log.info(&quot;Exception caught: &quot; + e.getMessage());
+    //e.printStackTrace();
+    return &quot;Beanshell::::::&quot; + samplerName + &quot;Error::::::::::::&quot; + e.getMessage();
+}</stringProp>
+                <stringProp name="scriptLanguage">java</stringProp>
+              </JSR223Sampler>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="KVB_PT_MQ_02_NEFT_INCOMING">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <longProp name="ThreadGroup.duration">300</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="filename">D:/Yethi_PT/PT_EXE/TestData/RTGS_Incoming_AccountNo.csv</stringProp>
+          <boolProp name="ignoreFirstLine">true</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">DbtrAcct</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="BizMsgIdr" enabled="true">
+          <stringProp name="TestPlan.comments">RBIP202411295643215367</stringProp>
+          <stringProp name="maximumValue">32459999</stringProp>
+          <stringProp name="minimumValue">32441111</stringProp>
+          <stringProp name="outputFormat"></stringProp>
+          <boolProp name="perThread">false</boolProp>
+          <stringProp name="randomSeed"></stringProp>
+          <stringProp name="variableName">BizMsgIdr</stringProp>
+        </RandomVariableConfig>
+        <hashTree/>
+        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="EndToEndId" enabled="true">
+          <stringProp name="maximumValue">32459999</stringProp>
+          <stringProp name="minimumValue">32441111</stringProp>
+          <stringProp name="outputFormat"></stringProp>
+          <boolProp name="perThread">false</boolProp>
+          <stringProp name="randomSeed"></stringProp>
+          <stringProp name="variableName">EndToEndId</stringProp>
+        </RandomVariableConfig>
+        <hashTree/>
+        <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="TxId" enabled="true">
+          <stringProp name="TestPlan.comments">UBIN202411354876568765375882</stringProp>
+          <stringProp name="maximumValue">32459999</stringProp>
+          <stringProp name="minimumValue">32441111</stringProp>
+          <stringProp name="outputFormat"></stringProp>
+          <boolProp name="perThread">false</boolProp>
+          <stringProp name="randomSeed"></stringProp>
+          <stringProp name="variableName">TxId</stringProp>
+        </RandomVariableConfig>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="KVB_PT_MQ_02_NEFT_INCOMING">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">import com.ibm.mq.*;
+
+// IBM MQ Configuration
+def HOST_NAME = &quot;10.52.31.4&quot;;
+def PORT = 1414;
+def QMGR = &quot;KVBLCBSQM&quot;;
+def CHANNEL = &quot;SYSTEM.DEF.SVRCONN&quot;;
+def RTGS_GET_QUEUE_NAME = &quot;POSTILION_RES_OUTQ&quot;;
+def RTGS_PUT_QUEUE_NAME = &quot;NFT.INCOMING&quot;;
+
+// Generate Dynamic Variables
+String bizMsgIdr = vars.get(&quot;BizMsgIdr&quot;); // Generate unique BizMsgIdr
+String txId = vars.get(&quot;TxId&quot;); // Generate unique TxId
+String endToEndId = vars.get(&quot;EndToEndId&quot;); // Generate unique TxId
+String dbtrAcct = vars.get(&quot;DbtrAcct&quot;); // Example debtor account number, you can generate if needed
+
+// Save Variables for Reuse
+//vars.put(&quot;BizMsgIdr&quot;, bizMsgIdr);
+//vars.put(&quot;TxId&quot;, txId);
+//vars.put(&quot;DbtrAcct&quot;, dbtrAcct);
+
+// Hardcoded XML Request with Placeholders
+String xmlRequest = &quot;&quot;&quot;CBS
+&lt;RequestPayload&gt;
+	&lt;AppHdr
+		xmlns=&quot;urn:iso:std:iso:20022:tech:xsd:head.001.001.02&quot;
+		xmlns:sig=&quot;http://www.w3.org/2000/09/xmldsig#&quot;
+		xmlns:xsi=&quot;urn:iso:std:iso:20022:tech:xsd:Header&quot;&gt;
+		&lt;Fr&gt;
+			&lt;FIId&gt;
+				&lt;FinInstnId&gt;
+					&lt;ClrSysMmbId&gt;
+						&lt;MmbId&gt;RBIP0NEFTSC&lt;/MmbId&gt;
+					&lt;/ClrSysMmbId&gt;
+				&lt;/FinInstnId&gt;
+			&lt;/FIId&gt;
+		&lt;/Fr&gt;
+		&lt;To&gt;
+			&lt;FIId&gt;
+				&lt;FinInstnId&gt;
+					&lt;ClrSysMmbId&gt;
+						&lt;MmbId&gt;KVBL0001260&lt;/MmbId&gt;
+					&lt;/ClrSysMmbId&gt;
+				&lt;/FinInstnId&gt;
+			&lt;/FIId&gt;
+		&lt;/To&gt;
+		&lt;BizMsgIdr&gt;RBIP20241203582${BizMsgIdr}&lt;/BizMsgIdr&gt;
+		&lt;MsgDefIdr&gt;pacs.008.001.09&lt;/MsgDefIdr&gt;
+		&lt;BizSvc&gt;NEFTFIToFICustomerCredit&lt;/BizSvc&gt;
+		&lt;CreDt&gt;${System_date}T18:24:24Z&lt;/CreDt&gt;
+		&lt;Sgntr&gt;
+			&lt;sig:XMLSgntrs&gt;-----BEGIN PKCS7-----
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0B
+BwEAAKCAMIIFUzCCBDugAwIBAgIKGsuC/J2nG38w5jANBgkqhkiG9w0BAQsFADCB
++zELMAkGA1UEBhMCSU4xRTBDBgNVBAoTPEluc3RpdHV0ZSBmb3IgRGV2ZWxvcG1l
+bnQgYW5kIFJlc2VhcmNoIGluIEJhbmtpbmcgVGVjaG5vbG9neTEdMBsGA1UECxMU
+Q2VydGlmeWluZyBBdXRob3JpdHkxDzANBgNVBBETBjUwMDA1NzESMBAGA1UECBMJ
+VGVsYW5nYW5hMSkwJwYDVQQJEyBSb2FkIE5vLjEsIE1hc2FiIFRhbmssIEh5ZGVy
+YWJhZDEVMBMGA1UEMxMMQ2FzdGxlIEhpbGxzMR8wHQYDVQQDExZJRFJCVCBTdWIg
+Q0EgMjAyMi1URVNUMB4XDTI0MDYyODA0NTk0M1oXDTI0MTIyNTE4Mjk1OVowFjEU
+MBIGA1UEAxMLUkJJUDBORUZUU0MwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+AoIBAQCVpBFvzFw4Yx5bN/UQdkYqU8yG2U3uo8b5oRJJLFw3+n46g0zXi+UNYWxE
+4QQiKOhWNIvW3N0SoRvIm1LvDSNtTGUS0gAM1pLe8+rof3Dcb/sEUiHBVJ8HZFHF
+iPLCHL52ff+6gGJ0YqRPzLT+RLdftw0EtHhG2rkVWWfXgfwZAYVLkEMFCnCTSJli
++t1KIEWh6JyGzcSeWkUGGL0k2Jl43QbiiioI8zXsc2RxE3FCTcrEuxjNnJ1OPtZC
+1onWXd9qurn37SM95Z7qgGfIfYIjgLhuYs8d57wXgIt48I0wOjNdsk2y8xIwZWqh
+Vaax6BsJQFqVzmVF9ipv+Rm5r6jVAgMBAAGjggG7MIIBtzAMBgNVHRMBAf8EAjAA
+MA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDAjAfBgNVHSMEGDAW
+gBSL+8+93zauVheEuwl/V9SvDb6eizAdBgNVHQ4EFgQUlasyxr10uEiWaZdwDwyB
+ry3G8GEwdQYIKwYBBQUHAQEEaTBnMD0GCCsGAQUFBzAChjFodHRwOi8vaWRyYnRj
+YS5vcmcuaW4vY2VydC9JRFJCVFN1YkNBMjAyMlRFU1QuY2VyMCYGCCsGAQUFBzAB
+hhpodHRwOi8vb2NzcC5pZHJidGNhLm9yZy5pbjAPBgNVHREECDAGhwQKIwJTMG0G
+A1UdHwRmMGQwMqAwoC6GLGh0dHA6Ly9pZHJidGNhLm9yZy5pbi9JRFJCVFN1YkNB
+MjAyMlRFU1QuY3JsMC6gLKAqhihodHRwOi8vMTAuMC42NS42NS9JRFJCVFN1YkNB
+MjAyMlRFU1QuY3JsMEsGA1UdIAREMEIwQAYGYIJkZAIDMDYwNAYIKwYBBQUHAgIw
+KB4mAEMAbABhAHMAcwAgADMAIABDAGUAcgB0AGkAZgBpAGMAYQB0AGUwDQYJKoZI
+hvcNAQELBQADggEBAGXL2pYdfGSrB9XaxGakWnzWZTR+R2V+YMvJcV3x972Jp6uU
+Maq92toC2Po96WlK0iaqNYln9W9+J3qE8hJ08lgYa5DpPp7xNYdpdTH9aYOmo3rZ
+bDOYYaEQ6qccIPiMJ/71XK6P070MIiHwGUEzKTFK6UC6ChEQNDHm8ZYpvwlEj7Qg
+T/k3byHgLZWtPI7GzX+HB9uMjjp5YZlmeK8OX9RNzM7ZxMrFf8xHiCaNIGNU1HpX
+mHlER/UZtFsfK3K5NcB3Xe2IMw6Dk+aB+sTG8ig2B9M65y0v2OcOYNnEhv9FA4Dt
+VPOu/uZxAB3vInBVmgDTZysjHPqqexto80kAaRUAADGCAqIwggKeAgEBMIIBCjCB
++zELMAkGA1UEBhMCSU4xRTBDBgNVBAoTPEluc3RpdHV0ZSBmb3IgRGV2ZWxvcG1l
+bnQgYW5kIFJlc2VhcmNoIGluIEJhbmtpbmcgVGVjaG5vbG9neTEdMBsGA1UECxMU
+Q2VydGlmeWluZyBBdXRob3JpdHkxDzANBgNVBBETBjUwMDA1NzESMBAGA1UECBMJ
+VGVsYW5nYW5hMSkwJwYDVQQJEyBSb2FkIE5vLjEsIE1hc2FiIFRhbmssIEh5ZGVy
+YWJhZDEVMBMGA1UEMxMMQ2FzdGxlIEhpbGxzMR8wHQYDVQQDExZJRFJCVCBTdWIg
+Q0EgMjAyMi1URVNUAgoay4L8nacbfzDmMA0GCWCGSAFlAwQCAQUAoGkwGAYJKoZI
+hvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQxMTI5MDU1NDI0
+WjAvBgkqhkiG9w0BCQQxIgQgeG5GXuR/gFOdthV956V65Dj1g346DMZj2eI9rI/k
+Me8wDQYJKoZIhvcNAQEBBQAEggEAgxneXCU86+OMZrxM+bTLDCU57ckHhIfycjjW
+rL9XZ2PL/RI5m8y4PjRrlBOLpJExQoVMlCa5Gbin2wF1zmbt5dm+7c2TiECn6Cvl
+tlg/1D95dmVZcj8tAY9yEm4YnnDoe47O3robwBBDVZ4FBe/rBArylQXqu30gQy2X
+TircsotvVafmLPpQmWMTcDf1Ki/p4negGlosYxns27qxQnTQXlTzsxulfbaSdhVN
+FtTs0Yv9I9Ekzh1fbNsQEcos425AZZkkq7ZaIzzkTzd4+ef+SKJkabyL3288IlLt
+/YV9SvrK036eUG/wXKK8PvTzKqh7ew7Fgf/IrWctEtX8ASLspgAAAAAAAA==
+-----END PKCS7-----
+&lt;/sig:XMLSgntrs&gt;
+		&lt;/Sgntr&gt;
+	&lt;/AppHdr&gt;
+	&lt;Document
+		xmlns=&quot;urn:iso:std:iso:20022:tech:xsd:pacs.008.001.09&quot;&gt;
+		&lt;FIToFICstmrCdtTrf&gt;
+			&lt;GrpHdr&gt;
+				&lt;MsgId&gt;RBIP20241203582${BizMsgIdr}&lt;/MsgId&gt;
+				&lt;CreDtTm&gt;${System_date}T18:24:24&lt;/CreDtTm&gt;
+				&lt;NbOfTxs&gt;1&lt;/NbOfTxs&gt;
+				&lt;TtlIntrBkSttlmAmt Ccy=&quot;INR&quot;&gt;100.00&lt;/TtlIntrBkSttlmAmt&gt;
+				&lt;IntrBkSttlmDt&gt;${System_date}&lt;/IntrBkSttlmDt&gt;
+				&lt;SttlmInf&gt;
+					&lt;SttlmMtd&gt;CLRG&lt;/SttlmMtd&gt;
+				&lt;/SttlmInf&gt;
+				&lt;InstgAgt&gt;
+					&lt;FinInstnId&gt;
+						&lt;ClrSysMmbId&gt;
+							&lt;MmbId&gt;RBIP0NEFTSC&lt;/MmbId&gt;
+						&lt;/ClrSysMmbId&gt;
+					&lt;/FinInstnId&gt;
+				&lt;/InstgAgt&gt;
+				&lt;InstdAgt&gt;
+					&lt;FinInstnId&gt;
+						&lt;ClrSysMmbId&gt;
+							&lt;MmbId&gt;KVBL0001260&lt;/MmbId&gt;
+						&lt;/ClrSysMmbId&gt;
+					&lt;/FinInstnId&gt;
+				&lt;/InstdAgt&gt;
+			&lt;/GrpHdr&gt;
+			&lt;CdtTrfTxInf&gt;
+				&lt;PmtId&gt;
+					&lt;EndToEndId&gt;/XUTR/IOBAN269${EndToEndId}&lt;/EndToEndId&gt;
+					&lt;TxId&gt;IOBAN220249461${TxId}&lt;/TxId&gt;
+				&lt;/PmtId&gt;
+				&lt;PmtTpInf&gt;
+					&lt;InstrPrty&gt;NORM&lt;/InstrPrty&gt;
+					&lt;SvcLvl&gt;
+						&lt;Cd&gt;SDVA&lt;/Cd&gt;
+					&lt;/SvcLvl&gt;
+					&lt;LclInstrm&gt;
+						&lt;Cd&gt;TRF&lt;/Cd&gt;
+					&lt;/LclInstrm&gt;
+					&lt;CtgyPurp&gt;
+						&lt;Cd&gt;EFT&lt;/Cd&gt;
+					&lt;/CtgyPurp&gt;
+				&lt;/PmtTpInf&gt;
+				&lt;IntrBkSttlmAmt Ccy=&quot;INR&quot;&gt;100.00&lt;/IntrBkSttlmAmt&gt;
+				&lt;ChrgBr&gt;CRED&lt;/ChrgBr&gt;
+				&lt;Dbtr&gt;
+					&lt;Nm&gt;M SURUTHI&lt;/Nm&gt;
+					&lt;CtctDtls/&gt;
+				&lt;/Dbtr&gt;
+				&lt;DbtrAcct&gt;
+					&lt;Id&gt;
+						&lt;Othr&gt;
+							&lt;Id&gt;197601000005496&lt;/Id&gt;
+						&lt;/Othr&gt;
+					&lt;/Id&gt;
+					&lt;Tp&gt;
+						&lt;Cd&gt;10&lt;/Cd&gt;
+					&lt;/Tp&gt;
+				&lt;/DbtrAcct&gt;
+				&lt;DbtrAgt&gt;
+					&lt;FinInstnId&gt;
+						&lt;ClrSysMmbId&gt;
+							&lt;MmbId&gt;IOBA0000109&lt;/MmbId&gt;
+						&lt;/ClrSysMmbId&gt;
+					&lt;/FinInstnId&gt;
+				&lt;/DbtrAgt&gt;
+				&lt;CdtrAgt&gt;
+					&lt;FinInstnId&gt;
+						&lt;ClrSysMmbId&gt;
+							&lt;MmbId&gt;KVBL0002102&lt;/MmbId&gt;
+						&lt;/ClrSysMmbId&gt;
+					&lt;/FinInstnId&gt;
+				&lt;/CdtrAgt&gt;
+				&lt;Cdtr&gt;
+					&lt;Nm&gt;DHARA TRADING CO&lt;/Nm&gt;
+					&lt;PstlAdr&gt;
+						&lt;AdrLine&gt;DHARA TRADING COM SURUTHI&lt;/AdrLine&gt;
+					&lt;/PstlAdr&gt;
+					&lt;CtctDtls&gt;
+						&lt;MobNb&gt;+91-8977462315&lt;/MobNb&gt;
+					&lt;/CtctDtls&gt;
+				&lt;/Cdtr&gt;
+				&lt;CdtrAcct&gt;
+					&lt;Id&gt;
+						&lt;Othr&gt;
+							&lt;Id&gt;${DbtrAcct}&lt;/Id&gt;
+						&lt;/Othr&gt;
+					&lt;/Id&gt;
+				&lt;/CdtrAcct&gt;
+				&lt;InstrForCdtrAgt&gt;
+					&lt;InstrInf&gt;197601000005496M SURUTHI&lt;/InstrInf&gt;
+				&lt;/InstrForCdtrAgt&gt;
+				&lt;RmtInf&gt;
+					&lt;Ustrd&gt;BatchId:0021&lt;/Ustrd&gt;
+					&lt;Ustrd&gt;TEST MSG TEST MSG&lt;/Ustrd&gt;
+				&lt;/RmtInf&gt;
+			&lt;/CdtTrfTxInf&gt;
+		&lt;/FIToFICstmrCdtTrf&gt;
+	&lt;/Document&gt;
+&lt;/RequestPayload&gt;
+&quot;&quot;&quot;;
+
+// Replace Placeholders with Variables
+String finalRequest = xmlRequest
+        .replace(&quot;${BizMsgIdr}&quot;, bizMsgIdr)
+        .replace(&quot;${TxId}&quot;, txId)
+        .replace(&quot;${EndToEndId}&quot;, endToEndId)
+        .replace(&quot;${DbtrAcct}&quot;, dbtrAcct);
+   log.info(&quot;Message successfully put into queue: &quot; + finalRequest);
+// IBM MQ Integration
+MQEnvironment.hostname = HOST_NAME;
+MQEnvironment.port = PORT;
+MQEnvironment.channel = CHANNEL;
+MQEnvironment.sslCipherSuite = &quot;&quot;;
+
+MQQueueManager queueMgr = null;
+MQQueue putQueue = null;
+
+try {
+    // Connect to the Queue Manager
+    queueMgr = new MQQueueManager(QMGR);
+    log.info(&quot;Connected to Queue Manager: &quot; + QMGR);
+
+    // Access the Put Queue
+    putQueue = queueMgr.accessQueue(RTGS_PUT_QUEUE_NAME, MQC.MQOO_FAIL_IF_QUIESCING | MQC.MQOO_OUTPUT);
+
+    // Prepare MQ Message
+    MQPutMessageOptions pmo = new MQPutMessageOptions();
+    MQMessage reqMessage = new MQMessage();
+    reqMessage.replyToQueueName = RTGS_GET_QUEUE_NAME;
+    reqMessage.report = MQC.MQRO_PASS_MSG_ID;
+    reqMessage.messageType = MQC.MQMT_REQUEST;
+    reqMessage.write(finalRequest.getBytes());
+
+    // Put Message in Queue
+    putQueue.put(reqMessage, pmo);
+    log.info(&quot;Message successfully put into queue: &quot; + RTGS_PUT_QUEUE_NAME);
+    log.info(&quot;Message successfully put into queue: &quot; + reqMessage);
+
+} catch (MQException e) {
+    log.error(&quot;MQException: &quot; + e.getMessage());
+    e.printStackTrace();
+} catch (IOException e) {
+    log.error(&quot;IOException: &quot; + e.getMessage());
+    e.printStackTrace();
+} finally {
+    try {
+        if (putQueue != null) putQueue.close();
+        if (queueMgr != null) queueMgr.close();
+    } catch (Exception e) {
+        log.error(&quot;Cleanup Exception: &quot; + e.getMessage());
+    }
+}
+</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="TestPlan.comments">D:\\IBM\\NEFT_Incoming_Request1IP.txt</stringProp>
+        </JSR223Sampler>
+        <hashTree>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+            <stringProp name="ConstantTimer.delay">1000</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="VTS_Get_total_ColumnRows_BizMsgIdr">
+          <intProp name="HTTPSampler.concurrentPool">6</intProp>
+          <stringProp name="HTTPSampler.domain">localhost</stringProp>
+          <stringProp name="HTTPSampler.port">4000</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.path">/data/get_count?colname=KVB_PT_MQ_02_NEFT_INCOMING&amp;_=15197482799</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">VTS_Column_Cunt</stringProp>
+            <stringProp name="RegexExtractor.regex">true,&quot;count&quot;:(.*?)}</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+            <stringProp name="Sample.scope">all</stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+          </RegexExtractor>
+          <hashTree/>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/x-www-form-urlencoded</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="VTS_Get_edit_ColumnRows_BizMsgIdr" enabled="true">
+          <stringProp name="TestPlan.comments">key=DDA_GL_Trans_No,DDA-DDA_Trans_No,GL-DDA_Trans_No&amp;value=${DDA_GL_Trans_No},${DDA-DDA_Trans_No},${GL-DDA_Trans_No}&amp;PR_Username=test&amp;id=${VTS_Column_Cunt}&amp;oper=edit</stringProp>
+          <intProp name="HTTPSampler.concurrentPool">6</intProp>
+          <stringProp name="HTTPSampler.domain">localhost</stringProp>
+          <stringProp name="HTTPSampler.port">4000</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.path">/data/edit_cell/</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">key=KVB_PT_MQ_02_NEFT_INCOMING&amp;value=${BizMsgIdr},${EndToEndId}&amp;PR_Username=test&amp;id=${VTS_Column_Cunt}&amp;oper=edit</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/x-www-form-urlencoded</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+        <boolProp name="ResultCollector.error_logging">true</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>true</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>true</responseData>
+            <samplerData>true</samplerData>
+            <xml>true</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>true</responseHeaders>
+            <requestHeaders>true</requestHeaders>
+            <responseDataOnError>true</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <fileName>true</fileName>
+            <hostname>true</hostname>
+            <threadCounts>true</threadCounts>
+            <sampleCount>true</sampleCount>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename">D:\Yethi_PT\PT_EXE\Result\Latest\Error.xml</stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>false</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>false</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>true</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <hostname>true</hostname>
+            <threadCounts>true</threadCounts>
+            <sampleCount>true</sampleCount>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

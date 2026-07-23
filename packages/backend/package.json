@@ -1,0 +1,62 @@
+{
+  "name": "@tenjint6/backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:studio": "prisma studio",
+    "db:generate": "prisma generate"
+  },
+  "dependencies": {
+    "@kubernetes/client-node": "^1.4.0",
+    "@prisma/client": "^6.0.0",
+    "@tenjint6/shared": "*",
+    "amqplib": "^0.10.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "cron-parser": "^5.6.1",
+    "express": "^4.21.0",
+    "express-ws": "^5.0.2",
+    "http-proxy": "^1.18.1",
+    "jsonwebtoken": "^9.0.3",
+    "node-cron": "^4.6.0",
+    "nodemailer": "^9.0.3",
+    "pino": "^9.0.0",
+    "pino-pretty": "^11.0.0",
+    "playwright": "^1.61.1",
+    "simple-git": "^3.36.0",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^10.0.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.0",
+    "@types/express": "^5.0.0",
+    "@types/http-proxy": "^1.17.17",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/nodemailer": "^8.0.1",
+    "@types/supertest": "^7.2.0",
+    "@types/uuid": "^10.0.0",
+    "@types/ws": "^8.5.0",
+    "prisma": "^6.0.0",
+    "supertest": "^7.2.2",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.10"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
+}

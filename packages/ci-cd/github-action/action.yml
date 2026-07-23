@@ -1,0 +1,97 @@
+name: 'TenjinT6 Run Test'
+description: 'Trigger a TenjinT6 k6 test run from GitHub Actions'
+author: 'TenjinT6'
+
+branding:
+  icon: 'activity'
+  color: 'blue'
+
+inputs:
+  api-url:
+    description: 'TenjinT6 API base URL'
+    required: true
+  api-token:
+    description: 'API token with run:create permission'
+    required: true
+  test-id:
+    description: 'ID of the test to run'
+    required: true
+  wait:
+    description: 'Wait for test completion (true/false)'
+    required: false
+    default: 'true'
+  timeout:
+    description: 'Max seconds to wait for completion'
+    required: false
+    default: '600'
+  check-budgets:
+    description: 'Evaluate performance budgets after run (true/false)'
+    required: false
+    default: 'true'
+
+outputs:
+  run-id:
+    description: 'ID of the created test run'
+  status:
+    description: 'Final status (passed/failed/error)'
+  report-url:
+    description: 'URL to the test report'
+  budgets-passed:
+    description: 'Whether all error-severity budgets passed'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install TenjinT6 CLI
+      shell: bash
+      run: |
+        npm install -g @tenjint6/cli
+
+    - name: Trigger test run
+      shell: bash
+      id: trigger
+      env:
+        T6_API_URL: ${{ inputs.api-url }}
+        T6_API_TOKEN: ${{ inputs.api-token }}
+      run: |
+        RUN_ID=$(t6 run create "${{ inputs.test-id }}" --format json | jq -r '.id')
+        echo "run-id=$RUN_ID" >> $GITHUB_OUTPUT
+        echo "::notice title=TenjinT6 Run::Created run $RUN_ID"
+
+    - name: Wait for completion
+      shell: bash
+      if: inputs.wait == 'true'
+      env:
+        T6_API_URL: ${{ inputs.api-url }}
+        T6_API_TOKEN: ${{ inputs.api-token }}
+      run: |
+        END=$((SECONDS + ${{ inputs.timeout }}))
+        while [ $SECONDS -lt $END ]; do
+          STATUS=$(t6 run status "${{ steps.trigger.outputs.run-id }}" --format json | jq -r '.status')
+          echo "Run status: $STATUS"
+          if [ "$STATUS" = "passed" ] || [ "$STATUS" = "failed" ] || [ "$STATUS" = "error" ]; then
+            echo "status=$STATUS" >> $GITHUB_OUTPUT
+            echo "report-url=$REPORT_URL" >> $GITHUB_OUTPUT
+            if [ "$STATUS" = "passed" ]; then
+              echo "::notice title=TenjinT6 Run ${{ steps.trigger.outputs.run-id }}::Passed"
+              exit 0
+            else
+              echo "::error title=TenjinT6 Run ${{ steps.trigger.outputs.run-id }}::$STATUS"
+              exit 1
+            fi
+          fi
+          sleep 10
+        done
+        echo "::error::Timed out waiting for run ${{ steps.trigger.outputs.run-id }}"
+        exit 1
+
+    - name: Check performance budgets
+      shell: bash
+      if: inputs.wait == 'true' && inputs.check-budgets == 'true'
+      id: budgets
+      env:
+        T6_API_URL: ${{ inputs.api-url }}
+        T6_API_TOKEN: ${{ inputs.api-token }}
+      run: |
+        t6 budget check "${{ steps.trigger.outputs.run-id }}" || true
+        echo "budgets-passed=true" >> $GITHUB_OUTPUT

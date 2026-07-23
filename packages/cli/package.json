@@ -1,0 +1,12 @@
+{
+  "name": "@tenjint6/cli",
+  "version": "1.0.0",
+  "description": "TenjinT6 CLI — trigger runs, check results, download reports",
+  "type": "module",
+  "bin": {
+    "t6": "./index.ts"
+  },
+  "scripts": {
+    "start": "node index.ts"
+  }
+}

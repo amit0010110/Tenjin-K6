@@ -1,0 +1,584 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  role         String   @default("user")
+  passwordHash String?  @map("password_hash")
+  createdAt    DateTime @default(now())
+
+  projects    Project[]
+  memberships ProjectMember[]
+  testRuns    TestRun[]
+  apiKeys     ApiKey[]
+  pats        PersonalAccessToken[]
+  auditLogs   AuditLog[]
+
+  @@map("users")
+}
+
+model ProjectMember {
+  id        String   @id @default(uuid())
+  projectId String   @map("project_id")
+  userId    String   @map("user_id")
+  role      String   @default("member")
+  createdAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@unique([projectId, userId])
+  @@index([userId])
+  @@map("project_members")
+}
+
+model ApiKey {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  name      String
+  key       String   @unique
+  lastUsedAt DateTime? @map("last_used_at")
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("api_keys")
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  userId      String
+  k6CloudToken String? @map("k6_cloud_token")
+  smtpConfig  String   @default("{}") @map("smtp_config")
+  k8sConfig   String   @default("{}") @map("k8s_config")
+  budgetRules String   @default("[]") @map("budget_rules")
+  createdAt   DateTime @default(now())
+
+  user         User           @relation(fields: [userId], references: [id])
+  members      ProjectMember[]
+  scripts      Script[]
+  environments Environment[]
+  csvFiles     CsvFile[]
+  alertRules   AlertRule[]
+  gitRepos     GitRepo[]
+  testRuns     TestRun[]
+  testConfigs  TestConfig[]
+  suites       TestSuite[]
+  workers      Worker[]
+  auditLogs    AuditLog[]
+  plugins      Plugin[]
+  dashboards   Dashboard[]
+  slaRules     SlaRule[]
+  testPlans    TestPlan[]
+  dbConnections DatabaseConnection[]
+  outputProfiles OutputProfile[]
+
+  @@map("projects")
+}
+
+model Script {
+  id        String   @id @default(uuid())
+  projectId String
+  name      String
+  version   Int      @default(1)
+  content   String
+  filePath  String?
+  blocks    String?
+  envVars   String   @default("{}")
+  tags      String   @default("{}")
+  createdAt DateTime @default(now())
+  testPlanId String? @map("test_plan_id")
+
+  project  Project           @relation(fields: [projectId], references: [id])
+  configs  TestConfig[]
+  testRuns TestRun[]
+  suiteScripts TestSuiteScript[]
+  versions     ScriptVersion[]
+  slaRules     SlaRule[]
+  testPlan     TestPlan?        @relation(fields: [testPlanId], references: [id], onDelete: SetNull)
+
+  @@index([projectId])
+  @@map("scripts")
+}
+
+model ScriptVersion {
+  id        String   @id @default(uuid())
+  scriptId  String   @map("script_id")
+  version   Int
+  content   String
+  envVars   String   @default("{}")
+  tags      String   @default("{}")
+  createdAt DateTime @default(now())
+
+  script Script @relation(fields: [scriptId], references: [id], onDelete: Cascade)
+
+  @@unique([scriptId, version])
+  @@index([scriptId])
+  @@map("script_versions")
+}
+
+model TestConfig {
+  id                    String   @id @default(uuid())
+  scriptId              String
+  name                  String
+  description           String?
+  options               String   @default("{}")
+  prometheusPushUrl     String?  @map("prometheus_push_url")
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  projectId             String   @map("project_id")
+  project               Project  @relation(fields: [projectId], references: [id])
+
+  script    Script       @relation(fields: [scriptId], references: [id])
+  testRuns  TestRun[]
+  schedules Schedule[]
+  outputProfileId       String?        @map("output_profile_id")
+  outputProfile         OutputProfile? @relation(fields: [outputProfileId], references: [id], onDelete: SetNull)
+
+  @@index([projectId])
+  @@index([scriptId])
+  @@index([outputProfileId])
+  @@map("test_configs")
+}
+
+model TestRun {
+  id              String    @id @default(uuid())
+  testConfigId    String?
+  scriptId        String
+  projectId       String
+  userId          String
+  status          String    @default("pending")
+  statusMessage   String?
+  startedAt       DateTime?
+  finishedAt      DateTime?
+  k6ExitCode      Int?
+  triggerType     String    @default("manual")
+  optionsSnapshot String?
+  suiteRunId      String?   @map("suite_run_id")
+  cloudRunId      String?   @map("cloud_run_id")
+  cloudRunUrl     String?   @map("cloud_run_url")
+  notes           String?   @default("")
+  cloudResults    String?   @map("cloud_results")
+  createdAt       DateTime  @default(now())
+
+  script           Script             @relation(fields: [scriptId], references: [id])
+  project          Project            @relation(fields: [projectId], references: [id])
+  user             User               @relation(fields: [userId], references: [id])
+  config           TestConfig?        @relation(fields: [testConfigId], references: [id], onDelete: SetNull)
+  results          TestResult[]
+  resultPoints     TestResultPoint[]
+  thresholdResults ThresholdResult[]
+  slaBreaches      SlaBreach[]
+  requestLogs      TestRequestLog[]
+  assignments      WorkerRunAssignment[]
+
+  @@index([projectId, createdAt])
+  @@index([scriptId])
+  @@index([testConfigId])
+  @@index([status])
+  @@index([suiteRunId])
+  @@map("test_runs")
+}
+
+model TestResult {
+  id         String   @id @default(uuid())
+  testRunId  String
+  metricName String
+  metricType String
+  avg        Float?
+  min        Float?
+  max        Float?
+  med        Float?
+  p90        Float?
+  p95        Float?
+  p99        Float?
+  count      Int?
+  rate       Float?
+  value      Float?
+  tags       String   @default("{}")
+
+  testRun TestRun @relation(fields: [testRunId], references: [id], onDelete: Cascade)
+
+  @@index([testRunId, metricName])
+  @@map("test_results")
+}
+
+model TestResultPoint {
+  id          Int      @id @default(autoincrement())
+  testRunId   String
+  timestamp   DateTime
+  metricName  String
+  metricValue Float
+  tags        String   @default("{}")
+
+  testRun TestRun @relation(fields: [testRunId], references: [id], onDelete: Cascade)
+
+  @@index([testRunId])
+  @@map("test_result_points")
+}
+
+model ThresholdResult {
+  id            String  @id @default(uuid())
+  testRunId     String
+  metricName    String
+  thresholdExpr String
+  passed        Boolean
+  actualValue   Float?
+  aborted       Boolean @default(false)
+
+  testRun TestRun @relation(fields: [testRunId], references: [id], onDelete: Cascade)
+
+  @@index([testRunId])
+  @@map("threshold_results")
+}
+
+model TestRequestLog {
+  id        String   @id @default(uuid())
+  testRunId String
+
+  method    String
+  url       String
+  status    Int
+  body      String?
+  headers   String?
+  timing    Float?
+  timestamp DateTime @default(now())
+
+  testRun TestRun @relation(fields: [testRunId], references: [id], onDelete: Cascade)
+
+  @@index([testRunId])
+  @@map("test_request_logs")
+}
+
+model Schedule {
+  id           String    @id @default(uuid())
+  testConfigId String    @map("test_config_id")
+  name         String?
+  cronExpr     String    @map("cron_expr")
+  enabled      Boolean   @default(true)
+  lastRunAt    DateTime? @map("last_run_at")
+  nextRunAt    DateTime? @map("next_run_at")
+  createdAt    DateTime  @default(now())
+
+  config TestConfig @relation(fields: [testConfigId], references: [id], onDelete: Cascade)
+
+  @@index([testConfigId])
+  @@map("schedules")
+}
+
+model Environment {
+  id        String  @id @default(uuid())
+  projectId String
+  name      String
+  baseUrl   String?
+  variables String  @default("{}")
+  isDefault Boolean @default(false)
+
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@index([projectId])
+  @@map("environments")
+}
+
+model Dashboard {
+  id        String   @id @default(uuid())
+  projectId String   @map("project_id")
+  name      String   @default("My Dashboard")
+  widgets   String   @default("[]")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@map("dashboards")
+}
+
+model TestPlan {
+  id          String   @id @default(uuid())
+  projectId   String   @map("project_id")
+  name        String
+  description String?
+  blocks      String   @default("[]")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  scripts Script[]
+
+  @@index([projectId])
+  @@map("test_plans")
+}
+
+model DatabaseConnection {
+  id          String   @id @default(uuid())
+  projectId   String   @map("project_id")
+  name        String
+  type        String   @default("postgres") // postgres, mysql, sqlserver, sqlite
+  host        String   @default("localhost")
+  port        Int      @default(5432)
+  database    String   @default("")
+  username    String   @default("")
+  password    String   @default("")
+  ssl         Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@map("database_connections")
+}
+
+model OutputProfile {
+  id          String   @id @default(uuid())
+  projectId   String   @map("project_id")
+  name        String
+  outputType  String   // "influxdb", "kafka", "prometheus", "opentelemetry", "elasticsearch"
+  configJson  String   @default("{}") @map("config_json")
+  isDefault   Boolean  @default(false) @map("is_default")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project     Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  configs     TestConfig[]
+
+  @@index([projectId])
+  @@map("output_profiles")
+}
+
+model SlaRule {
+  id          String   @id @default(uuid())
+  projectId   String   @map("project_id")
+  scriptId    String?  @map("script_id")
+  name        String
+  description String?
+  metric      String   // http_req_duration, http_req_failed, http_reqs, iterations
+  condition   String   // lt, gt, lte, gte
+  threshold   Float
+  timeWindow  Int      @default(24) // hours, lookback period
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project  Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  script   Script?      @relation(fields: [scriptId], references: [id], onDelete: SetNull)
+  breaches SlaBreach[]
+
+  @@index([projectId])
+  @@index([scriptId])
+  @@map("sla_rules")
+}
+
+model SlaBreach {
+  id          String   @id @default(uuid())
+  slaRuleId   String   @map("sla_rule_id")
+  runId       String?  @map("run_id")
+  metric      String
+  actualValue Float    @map("actual_value")
+  threshold   Float
+  message     String?
+  breachedAt  DateTime @default(now()) @map("breached_at")
+  createdAt   DateTime @default(now())
+
+  slaRule SlaRule  @relation(fields: [slaRuleId], references: [id], onDelete: Cascade)
+  run     TestRun? @relation(fields: [runId], references: [id], onDelete: SetNull)
+
+  @@index([slaRuleId])
+  @@index([runId])
+  @@map("sla_breaches")
+}
+
+model CsvFile {
+  id        String   @id @default(uuid())
+  projectId String   @map("project_id")
+  name      String
+  filename  String
+  content   String
+  createdAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@index([projectId])
+  @@map("csv_files")
+}
+
+model AlertRule {
+  id            String   @id @default(uuid())
+  projectId     String   @map("project_id")
+  name          String
+  description   String?
+  metricName    String
+  condition     String   // "gt" | "lt" | "gte" | "lte" | "eq"
+  threshold     Float
+  channelType   String   // "slack" | "webhook" | "email"
+  channelConfig String   @default("{}") // JSON: { url, webhookUrl, recipients, etc }
+  enabled       Boolean  @default(true)
+  cooldownMinutes Int     @default(0) @map("cooldown_minutes")
+  lastTriggeredAt DateTime? @map("last_triggered_at")
+  createdAt     DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id])
+  events  AlertEvent[]
+
+  @@index([projectId])
+  @@map("alert_rules")
+}
+
+model AlertEvent {
+  id          String   @id @default(uuid())
+  alertRuleId String   @map("alert_rule_id")
+  runId       String?
+  metricName  String
+  metricValue Float
+  condition   String
+  threshold   Float
+  channelType String
+  sent        Boolean  @default(true)
+  error       String?
+  createdAt   DateTime @default(now())
+
+  alertRule AlertRule @relation(fields: [alertRuleId], references: [id])
+
+  @@index([alertRuleId])
+  @@index([runId])
+  @@map("alert_events")
+}
+
+model TestSuite {
+  id        String   @id @default(uuid())
+  projectId String   @map("project_id")
+  name      String
+  createdAt DateTime @default(now())
+
+  project Project           @relation(fields: [projectId], references: [id])
+  scripts TestSuiteScript[]
+
+  @@map("test_suites")
+}
+
+model TestSuiteScript {
+  id       String @id @default(uuid())
+  suiteId  String @map("suite_id")
+  scriptId String @map("script_id")
+  order    Int
+
+  suite  TestSuite @relation(fields: [suiteId], references: [id])
+  script Script    @relation(fields: [scriptId], references: [id])
+
+  @@unique([suiteId, scriptId])
+  @@map("test_suite_scripts")
+}
+
+model GitRepo {
+  id        String   @id @default(uuid())
+  projectId String   @map("project_id")
+  name      String
+  repoUrl   String   @map("repo_url")
+  branch    String   @default("main")
+  authToken String?  @map("auth_token")
+  lastSyncedAt DateTime? @map("last_synced_at")
+  createdAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@map("git_repos")
+}
+
+model Worker {
+  id          String   @id @default(uuid())
+  projectId   String   @map("project_id")
+  name        String
+  url         String
+  status      String   @default("offline")
+  capacity    Int      @default(100)
+  launchType  String   @default("local") @map("launch_type")
+  namespace   String?  @default("default")
+  lastHeartbeat DateTime? @map("last_heartbeat")
+  createdAt   DateTime @default(now())
+
+  project     Project                @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assignments WorkerRunAssignment[]
+
+  @@index([projectId])
+  @@index([status])
+  @@map("workers")
+}
+
+model WorkerRunAssignment {
+  id         String    @id @default(uuid())
+  runId      String    @map("run_id")
+  workerId   String    @map("worker_id")
+  vus        Int
+  status     String    @default("pending")
+  reason     String?
+  startedAt  DateTime? @map("started_at")
+  finishedAt DateTime? @map("finished_at")
+  createdAt  DateTime  @default(now())
+
+  run    TestRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+  worker Worker  @relation(fields: [workerId], references: [id])
+
+  @@index([runId])
+  @@index([workerId])
+  @@map("worker_run_assignments")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  projectId String   @map("project_id")
+  userId    String   @map("user_id")
+  action    String
+  entity    String
+  entityId  String   @map("entity_id")
+  details   String?
+  createdAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@index([projectId, createdAt])
+  @@map("audit_logs")
+}
+
+model Plugin {
+  id          String   @id @default(uuid())
+  projectId   String   @map("project_id")
+  name        String
+  description String?
+  repoUrl     String   @map("repo_url")
+  version     String   @default("latest")
+  enabled     Boolean  @default(true)
+  installedAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@map("plugins")
+}
+
+model PersonalAccessToken {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  name      String
+  tokenHash String   @map("token_hash")
+  scopes    String   @default("[\"*\"]")
+  expiresAt DateTime? @map("expires_at")
+  lastUsedAt DateTime? @map("last_used_at")
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("personal_access_tokens")
+}

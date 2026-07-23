@@ -1,0 +1,47 @@
+# TenjinT6 k6 Test — GitLab CI Template
+# Include this template in your .gitlab-ci.yml:
+#
+#   include:
+#     - local: ci-cd/gitlab/.gitlab-ci-template.yml
+#
+# Required CI/CD variables:
+#   T6_API_URL     — TenjinT6 API base URL
+#   T6_API_TOKEN   — API token with run:create permission
+#   T6_TEST_ID     — ID of the test to run
+#
+# Optional variables:
+#   T6_TIMEOUT     — max seconds to wait (default: 600)
+#   T6_WAIT        — wait for completion (default: "true")
+
+.tenjint6:run:
+  image: node:20-alpine
+  stage: test
+  variables:
+    T6_TIMEOUT: "600"
+    T6_WAIT: "true"
+    T6_CHECK_BUDGETS: "true"
+  before_script:
+    - npm install -g @tenjint6/cli
+    - t6 --version
+  script:
+    - |
+      RUN_ID=$(t6 run create "$T6_TEST_ID" --format json | jq -r '.id')
+      echo "Created run: $RUN_ID"
+      if [ "$T6_WAIT" = "true" ]; then
+        END=$((SECONDS + T6_TIMEOUT))
+        while [ $SECONDS -lt $END ]; do
+          STATUS=$(t6 run status "$RUN_ID" --format json | jq -r '.status')
+          echo "Status: $STATUS"
+          case "$STATUS" in
+            passed) echo "Test passed"; break ;;
+            failed) echo "Test failed"; exit 1 ;;
+            error)  echo "Test error";  exit 1 ;;
+          esac
+          sleep 10
+        done
+      fi
+    - |
+      if [ "$T6_CHECK_BUDGETS" = "true" ]; then
+        echo "Checking performance budgets..."
+        t6 budget check "$RUN_ID"
+      fi
