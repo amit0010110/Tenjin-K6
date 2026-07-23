@@ -17,7 +17,7 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-RUN apk add --no-cache k6
+COPY --from=grafana/k6:latest /usr/bin/k6 /usr/bin/k6
 
 COPY package.json package-lock.json ./
 COPY packages/shared/ packages/shared/
